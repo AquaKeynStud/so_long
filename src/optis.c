@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:52:54 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/30 18:21:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/30 18:32:57 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ bool	free_list(t_maptmp *head, int fd)
 	return (true);
 }
 
-static bool	handle_endline(char **line, t_maptmp **head, bool *map_ended, int fd)
+static bool	handle_endline(char **line, t_maptmp **head, bool *verif, int fd)
 {
 	if ((*line)[0] == '\n')
 	{
 		free((*line));
 		if (*head)
-			(*map_ended) = true;
+			(*verif) = true;
 		return (false);
 	}
 	else
 	{
-		if ((*map_ended))
+		if ((*verif))
 		{
 			free((*line));
 			free_list(*head, fd);
