@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 18:01:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/04/11 15:51:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ static bool	isnt_wall_surrounded(t_map *map, int width, int height)
 	return (false);
 }
 
-static bool	forbidden_type(t_case cell)
+static bool	err_tp(t_case cell)
 {
 	return (type_of(cell) < 0);
 }
 
-static bool	double_player(t_case cell)
+static bool	err_p(t_case cell)
 {
 	return (cell.type == 'P');
 }
 
-static bool	double_exit(t_case cell)
+static bool	err_e(t_case cell)
 {
 	return (cell.type == 'E');
 }
@@ -54,11 +54,11 @@ int	err_map_parsing(t_map *map, t_data *data)
 		return (ft_printf("Error\n"));
 	if (isnt_wall_surrounded(map, map->width - 1, map->height - 1))
 		return (1);
-	if (browse_map(map, forbidden_type) || browse_map(map, double_player) != 1
-		|| browse_map(map, double_exit) != 1 || map->items == 0)
+	if (browse_map(map, err_tp) || browse_map(map, err_p) != 1
+		|| browse_map(map, err_e) != 1 || map->items == 0)
 		return (ft_printf("Error\n"));
 	bfs(map, data->pyx[1], data->pyx[0]);
-	if (browse_map(map, is_item_unreachable))
+	if (browse_map(map, is_item_unreachable) || err_stuck_by_exit(map))
 		return (1);
 	return (0);
 }

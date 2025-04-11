@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bfs.c                                              :+:      :+:    :+:   */
+/*   m_bfs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 11:44:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 13:48:24 by arocca           ###   ########.fr       */
+/*   Updated: 2025/04/11 15:56:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,6 @@ t_queue	*queue_init(t_map *map, int start_x, int start_y)
 	return (q);
 }
 
-bool	has_unverified_neighbor(t_map *dmap, int y, int x)
-{
-	t_case	**map;
-	int		height;
-	int		width;
-
-	map = dmap -> map;
-	height = dmap -> height;
-	width = dmap -> width;
-	if (y + 1 < height && map[y + 1][x].type != '1' && !map[y + 1][x].verified)
-		return (true);
-	if (y - 1 >= 0 && map[y - 1][x].type != '1' && !map[y - 1][x].verified)
-		return (true);
-	if (x + 1 < width && map[y][x + 1].type != '1' && !map[y][x + 1].verified)
-		return (true);
-	if (x - 1 >= 0 && map[y][x - 1].type != '1' && !map[y][x - 1].verified)
-		return (true);
-	return (false);
-}
-
 void	handle_direction(t_map *map, t_queue *q, t_case *c, int direction)
 {
 	int	x;
@@ -70,7 +50,7 @@ void	handle_direction(t_map *map, t_queue *q, t_case *c, int direction)
 	if (!map->map[y][x].verified && map->map[y][x].type != '1')
 	{
 		map->map[y][x].verified = true;
-		if (q->rear < q->size && has_unverified_neighbor(map, y, x))
+		if (q->rear < q->size)
 			q->q[q->rear++] = &map->map[y][x];
 	}
 }
@@ -105,4 +85,30 @@ bool	is_item_unreachable(t_case cell)
 	if (cell.type == 'P' || cell.type == 'C' || cell.type == 'E')
 		ft_printf("Error\n");
 	return (true);
+}
+
+bool	err_stuck_by_exit(t_map *dmap)
+{
+	int		i;
+	int		j;
+	t_case	**map;
+
+	i = 0;
+	map = dmap -> map;
+	while (i < dmap->height)
+	{
+		j = 0;
+		while (j < dmap->width)
+		{
+			if (map[i][j].type == 'C' || map[i][j].type == 'P')
+			{
+				if (is_wall(map[i + 1][j]) && is_wall(map[i - 1][j])
+					&& is_wall(map[i][j + 1]) && is_wall(map[i][j - 1]))
+					return (ft_printf("Error\n"));
+			}
+			j++;
+		}
+		i++;
+	}
+	return (false);
 }

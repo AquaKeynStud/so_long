@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   m_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 13:26:46 by arocca           ###   ########.fr       */
+/*   Updated: 2025/04/11 15:43:31 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ void	*get_img(t_data *data, t_images img, int y, int x)
 	return (NULL);
 }
 
-int	*get_axis(int tab[2], int x, int y)
+bool	is_wall(t_case cell)
 {
-	tab[0] = x;
-	tab[1] = y;
-	return (tab);
+	return (cell.type == 'E' || !cell.verified);
 }

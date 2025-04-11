@@ -44,19 +44,19 @@ LST_MAN		=	m_map.c				\
 				m_bfs.c				\
 				m_main.c			\
 				m_utils.c			\
+				m_optis.c			\
 				m_parsing.c			\
 				m_printers.c		\
 				m_load_img.c		\
 				m_display_img.c		\
 				m_input_detector.c	
 
-
 LST_SRC		=	map.c				\
+				fix.c				\
 				main.c				\
 				utils.c				\
 				optis.c				\
 				animation.c			\
-				libft_func.c		\
 				monsters_handler.c
 
 LST_PRI		=	others.c			\
@@ -148,7 +148,7 @@ MAP := $(word 2, $(MAKECMDGOALS))
 	@:
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/$(MAP)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./so_long maps/$(MAP)
 
 signature:
 	@echo "$(GREY) ⠀⠀⠀⠀⠀⠀⠀⣀⣀"

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   m_map.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 14:38:30 by arocca           ###   ########.fr       */
+/*   Updated: 2025/04/11 14:56:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static void	fill_map(const char *file, t_map *map)
 
 bool	get_map(const char *file, t_map **map, t_data *data)
 {
-	(*map) = malloc(sizeof(t_map));
+	(*map) = ft_calloc(sizeof(t_map), 1);
 	if (!(*map))
 		return (false);
 	(*map)->width = 0;

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 18:40:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/04/11 15:51:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	err_map_parsing(t_map *map, t_data *data, const char *file)
 	bfs(map, data->pyx[1], data->pyx[0]);
 	if (map->width <= 50 && map->height <= 1000)
 		print_verification(map);
-	if (browse_map(map, is_item_unreachable))
+	if (browse_map(map, is_item_unreachable) || err_stuck_by_exit(map))
 		return (1);
 	return (0);
 }
